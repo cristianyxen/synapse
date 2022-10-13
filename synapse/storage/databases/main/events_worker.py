@@ -1866,7 +1866,8 @@ class EventsWorkerStore(SQLBaseStore):
         )
 
         if not res:
-            raise SynapseError(404, "Could not find event %s" % (event_id,))
+            logger.warning("Could not find event %s" % (event_id,))
+            return (0, 0)
 
         return int(res["topological_ordering"]), int(res["stream_ordering"])
 
